@@ -15,16 +15,33 @@ function Login() {
     setError("");
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(
+        auth,
+        email.trim(),
+        password
+      );
 
-      // Login successful
       navigate("/dashboard");
     } catch (error) {
-      console.error(error);
-      console.log("FIREBASE ERROR CODE:",error.code);
-      console.log("FIREBASE ERROR MESSAGE:",error.message);
-       alert(error.code + "-" + ErrorEvent.message);
-      setError("Invalid email or password.");
+      console.error("Firebase Login Error:", error);
+
+      console.log(
+        "FIREBASE ERROR CODE:",
+        error.code
+      );
+
+      console.log(
+        "FIREBASE ERROR MESSAGE:",
+        error.message
+      );
+
+      alert(
+        error.code + " - " + error.message
+      );
+
+      setError(
+        "Invalid email or password."
+      );
     }
   }
 
@@ -33,7 +50,10 @@ function Login() {
       <div className="auth-card">
 
         <h1>Welcome Back 👋</h1>
-        <p>Login to continue your SkillSwap journey.</p>
+
+        <p>
+          Login to continue your SkillSwap journey.
+        </p>
 
         <form onSubmit={handleLogin}>
 
@@ -41,7 +61,9 @@ function Login() {
             type="email"
             placeholder="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) =>
+              setEmail(e.target.value)
+            }
             required
           />
 
@@ -49,11 +71,17 @@ function Login() {
             type="password"
             placeholder="Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) =>
+              setPassword(e.target.value)
+            }
             required
           />
 
-          {error && <p className="error">{error}</p>}
+          {error && (
+            <p className="error">
+              {error}
+            </p>
+          )}
 
           <button type="submit">
             Login
@@ -63,7 +91,9 @@ function Login() {
 
         <p>
           Don't have an account?{" "}
-          <Link to="/signup">Create Account</Link>
+          <Link to="/signup">
+            Create Account
+          </Link>
         </p>
 
       </div>
